@@ -13,25 +13,23 @@ Parameters:
   ContainerPort:
     Type: Number
     Default: 8080
-
 Resources:
   # Create an ECR Repository to store docker images
   ECRRepository:
     Type: AWS::ECR::Repository
     Properties:
       RepositoryName: !Join ['-', [!Ref Stage, !Ref 'AWS::AccountId', 'ecr-repository']]
-
   # Create an S3 Bucket to store build artifacts
   S3Bucket:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Join ['-', [!Ref Stage, !Ref 'AWS::AccountId', 's3bucket']]
       AccessControl: Private
-        PublicAccessBlockConfiguration:
-          BlockPublicAcls: true
-          BlockPublicPolicy: true
-          IgnorePublicAcls: true
-          RestrictPublicBuckets: true
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
 
   # Create the BuildProject with required Build information
   BuildProject:
@@ -73,8 +71,8 @@ Resources:
             - Name: Source
               ActionTypeId:
                 Category: Source
-                Owner: ThirdParty
-                Provider: GitHub
+                Owner: AWS
+                Provider: CodeStarSourceConnection
                 Version: 1
               Configuration:
                 ConnectionArn: !Sub 'arn:aws:codestar-connections:eu-west-1:${AWS::AccountId}:connection/66168fcd-84c1-4af8-bc09-9a1aa9339ec8'

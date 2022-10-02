@@ -44,7 +44,3 @@ Resources:
             - "subnet-0f2a48aee724de577"
           SecurityGroups:
             - "sg-07c47a559287345cc"
-      LoadBalancers:
-        - ContainerName: !Join ['-', [!Ref Stage, !Ref 'AWS::AccountId', 'Container']]
-          ContainerPort: !Ref ContainerPort
-          TargetGroupArn: !Ref TargetGroup
