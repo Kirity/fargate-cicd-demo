@@ -1,0 +1,50 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: The Fragate CloudFormation template for node sample.
+Parameters:
+  Stage:
+    Type: String
+  ContainerPort:
+    Type: Number
+  ImageURI:
+    Type: String
+
+Resources:
+  # Create a TaskDefinition with container details
+  TaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Memory: 1024
+      Cpu: 512
+      NetworkMode: awsvpc
+      RequiresCompatibilities:
+        - 'FARGATE'
+      TaskRoleArn: !Sub 'arn:aws:iam::${AWS::AccountId}:role/ecsTaskExecutionRole'
+      ExecutionRoleArn: !Sub 'arn:aws:iam::${AWS::AccountId}:role/ecsTaskExecutionRole'
+      ContainerDefinitions:
+        - Name: !Join ['-', [!Ref Stage, !Ref 'AWS::AccountId', 'Container']]
+          Image: !Ref ImageURI
+          PortMappings:
+            - ContainerPort: !Ref ContainerPort
+              HostPort: !Ref ContainerPort
+
+  # Create an ECS Service and add created Cluster, TaskDefintion, Subnets, TargetGroup and SecurityGroup
+  ECSService:
+    Type: AWS::ECS::Service
+    Properties:
+      ServiceName: !Join ['-', [!Ref Stage, !Ref 'AWS::AccountId', 'ECSService']]
+      Cluster: "aws-fargate-cluster"
+      TaskDefinition: !Ref TaskDefinition
+      DesiredCount: 2
+      LaunchType: FARGATE
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          AssignPublicIp: ENABLED
+          Subnets:
+            - "subnet-065936a52eac9f5a1"
+            - "subnet-0f2a48aee724de577"
+          SecurityGroups:
+            - "sg-07c47a559287345cc"
+      LoadBalancers:
+        - ContainerName: !Join ['-', [!Ref Stage, !Ref 'AWS::AccountId', 'Container']]
+          ContainerPort: !Ref ContainerPort
+          TargetGroupArn: !Ref TargetGroup

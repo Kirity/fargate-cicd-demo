@@ -1,0 +1,129 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: The CloudFormation template to create the CodePipeline.
+Parameters:
+  Stage:
+    Type: String
+    Default: dev
+  GithubFullRepo:
+    Type: String
+    Default: "Kirity/fargate-cicd-demo"
+  GithubBranch:
+    Type: String
+    Default: master
+  ContainerPort:
+    Type: Number
+    Default: 8080
+
+Resources:
+  # Create an ECR Repository to store docker images
+  ECRRepository:
+    Type: AWS::ECR::Repository
+    Properties:
+      RepositoryName: !Join ['-', [!Ref Stage, !Ref 'AWS::AccountId', 'ecr-repository']]
+
+  # Create an S3 Bucket to store build artifacts
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Join ['-', [!Ref Stage, !Ref 'AWS::AccountId', 's3bucket']]
+      AccessControl: Private
+        PublicAccessBlockConfiguration:
+          BlockPublicAcls: true
+          BlockPublicPolicy: true
+          IgnorePublicAcls: true
+          RestrictPublicBuckets: true
+
+  # Create the BuildProject with required Build information
+  BuildProject:
+    Type: AWS::CodeBuild::Project
+    Properties:
+      Artifacts:
+        Type: CODEPIPELINE
+      Environment:
+        ComputeType: BUILD_GENERAL1_SMALL
+        Image: aws/codebuild/standard:2.0
+        ImagePullCredentialsType: CODEBUILD
+        PrivilegedMode: True
+        Type: LINUX_CONTAINER
+        EnvironmentVariables:
+          - Name: ECR_REPOSITORY_URI
+            Value: !Join [ ".", [ !Ref "AWS::AccountId", "dkr.ecr", !Ref "AWS::Region", !Join [ "/", [ "amazonaws.com", !Ref "ECRRepository" ] ] ] ]
+      Name: !Join ['-', [!Ref Stage, !Ref 'AWS::AccountId', 'BuildProject']]
+      ServiceRole: !Sub 'arn:aws:iam::${AWS::AccountId}:role/CODEBUILD_CICD_ROLE'
+      Source:
+        Type: CODEPIPELINE
+        # This file (buildspec.yml In Source code) contains commands to Create and Push a docker image to the ECR_REPOSITORY_URI
+        BuildSpec: buildspec.yml
+
+  # Create CodePipeline with 3 stages (Source, Build and Deploy)
+  CodePipeLine:
+    Type: AWS::CodePipeline::Pipeline
+    DependsOn: S3Bucket
+    Properties:
+      ArtifactStore:
+        Location: !Join ['-', [!Ref Stage, !Ref 'AWS::AccountId', 's3bucket']]
+        Type: S3
+      Name: !Join ['-', [!Ref Stage, !Ref 'AWS::AccountId', 'CodePipeLine']]
+      RestartExecutionOnUpdate: False
+      RoleArn: !Sub 'arn:aws:iam::${AWS::AccountId}:role/CODEPIPELINE_CICD_ROLE'
+      Stages:
+        # Download source code from Github Repo to source-output-artifacts path in S3 Bucket
+        - Name: Source
+          Actions:
+            - Name: Source
+              ActionTypeId:
+                Category: Source
+                Owner: ThirdParty
+                Provider: GitHub
+                Version: 1
+              Configuration:
+                ConnectionArn: !Sub 'arn:aws:codestar-connections:eu-west-1:${AWS::AccountId}:connection/66168fcd-84c1-4af8-bc09-9a1aa9339ec8'
+                FullRepositoryId: !Ref GithubFullRepo
+                BranchName: !Ref GithubBranch
+              RunOrder: 1
+              OutputArtifacts:
+                - Name: source-output-artifacts
+
+        # Build the project using the BuildProject and Output build artifacts to build-output-artifacts path in S3 Bucket
+        - Name: Build
+          Actions:
+            - Name: Build
+              ActionTypeId:
+                Category: Build
+                Owner: AWS
+                Version: 1
+                Provider: CodeBuild
+              OutputArtifacts:
+                - Name: build-output-artifacts
+              InputArtifacts:
+                - Name: source-output-artifacts
+              Configuration:
+                ProjectName: !Ref BuildProject
+              RunOrder: 1
+
+        # Deploy the project by executing node-sample-fargate-template.yaml file in the Source code with Cloudformation.
+        - Name: Deploy
+          Actions:
+            - Name: Deploy
+              ActionTypeId:
+                Category: Deploy
+                Owner: AWS
+                Version: 1
+                Provider: CloudFormation
+              InputArtifacts:
+                - Name: source-output-artifacts
+                - Name: build-output-artifacts
+              Configuration:
+                ActionMode: CREATE_UPDATE
+                Capabilities: CAPABILITY_NAMED_IAM
+                # Pass parameter values to node-sample-fargate-template.yaml for deployment
+                ParameterOverrides: !Sub |
+                  {
+                    "ImageURI" : { "Fn::GetParam" : ["build-output-artifacts", "imageDetail.json", "ImageURI"] },
+                    "Stage":  "${Stage}",
+                    "ContainerPort": "${ContainerPort}"
+                  }
+                RoleArn: !Sub 'arn:aws:iam::${AWS::AccountId}:role/CLOUDFORMATION_CICD_ROLE'
+                StackName: !Join ['-', [!Ref Stage, !Ref 'AWS::AccountId', 'node-sample-fargate']]
+                TemplatePath: source-output-artifacts::infrastructure/node-sample-fargate-template.yaml
+              RunOrder: 1
