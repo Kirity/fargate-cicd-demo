@@ -1,3 +1,12 @@
+# Summary
+[Introduction](https://github.com/Kirity/fargate-cicd-demo#introduction)
+[Pre-requisits](https://github.com/Kirity/fargate-cicd-demo#pre-requisits)
+[Architecture](https://github.com/Kirity/fargate-cicd-demo#architecture)
+[Let's create the application](https://github.com/Kirity/fargate-cicd-demo#lets-create-the-application)
+[Let's create the CodePipeline](https://github.com/Kirity/fargate-cicd-demo#lets-create-the-codepipeline)
+[Let's create the Fargate infrastructure](https://github.com/Kirity/fargate-cicd-demo#lets-create-the-fargate-infrastructure)
+[Testing](https://github.com/Kirity/fargate-cicd-demo#testing)
+
 # Introduction
 
 In this a demo project with a Node.js application which is deployed with CICD onto Fargate with CloudFormation.
@@ -114,7 +123,6 @@ Now let's increase the version from `1` to `2` and `commit` to branch `master`
 
 ![image](https://user-images.githubusercontent.com/15073157/193606194-348155a2-1ae2-4403-83a6-135296337991.png)
 
-
 Pipeline triggered for the corresponding `commit`
 
 ![image](https://user-images.githubusercontent.com/15073157/193606363-a5614d5e-003f-4b15-95aa-769c09535cbe.png)
@@ -124,8 +132,3 @@ Wait a while for the deployment to be successful...
 ![image](https://user-images.githubusercontent.com/15073157/193609534-20199d44-02ee-47ad-b1d1-3dec7d4ee135.png)
 
 After successful deployment the version is increased to `2`
-
-
-
-
-
