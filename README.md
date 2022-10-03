@@ -6,6 +6,9 @@ In this a demo project with a Node.js application which is deployed with CICD on
 
 # Architecture
 
+![image](https://user-images.githubusercontent.com/15073157/193616398-28088cea-2557-4e8d-89bd-5c9d6418d8b4.png)
+
+
 # Let's create the application
 
 It is a simple Hello World application, which will respond to our request. It listens on the port `8080` and returns a String with versio and hostname.
@@ -40,21 +43,89 @@ The resources created are:
   - `Build`: the above created build project is used here.
   - `Deploy`: in this step a CloudFormation template is executed in CF service. 
 
-### Execute the file
+### Execution of the file
 
-Command to run in the AWS CLI is `aws cloudformation create-stack --template-body file://node-sample-app-pipeline.yaml --stack-name node-sample-app-pipeline`.
+Command to run in the AWS CLI is `aws cloudformation create-stack --template-body file://infrastructure/node-sample-app-pipeline.yaml --stack-name node-sample-app-pipeline`.
 
 If CLI is not configured this can be executed via AWS UI too.
 
 Once the pipeline is created, we need the Fargate resources, which are used to deploy our Node application.
 
-### Created resources
+### Created pipeline and supported resources
 
 ECR repository
 
-![image](https://user-images.githubusercontent.com/15073157/193581225-6329ff53-4f7a-47d3-8d7f-7dd6c0abf89b.png)
+![image](https://user-images.githubusercontent.com/15073157/193581731-22ad6b40-9778-41d0-a1ad-8bdb563501b5.png)
+
+Pipeline
+
+![image](https://user-images.githubusercontent.com/15073157/193584105-ec50b743-a807-4898-876b-f02729e33f77.png)
 
 
 # Let's create the Fargate infrastructure
+
+File `infrastructure/node-sample-fargate-template.yaml` contains the needed resources for Fargate.
+
+`AWS::ElasticLoadBalancingV2::LoadBalancer`: an application is load balancer is created to take the requests from internet. 
+
+`AWS::ElasticLoadBalancingV2::TargetGroup`: a load balancer TargetGroup is created to listen the incoming `HTTP` requests on port `80`.
+
+`AWS::ElasticLoadBalancingV2::Listener`: a listener is created to bind the TargetGroup with the LoadBalancer.
+
+`AWS::ECS::TaskDefinition`: it defines which docker image needs to be extracted and run on Fargate. Also additional configurations like  memory, cpu, network, service role, and port mappings
+
+`AWS::ECS::Service`: it defines the configuration over the task and Fargate cluster on which task's needs to be run. Other config like tasks desired count, VPC configs, SecurityGroup, LoadBalancer.
+
+### Execution of the file
+
+This CloudFormation template is executed as part of `Deploy` stage in CodePipeline.
+
+### Created Fargate and supporting resources
+
+Application LoadBalancer
+
+![image](https://user-images.githubusercontent.com/15073157/193603572-b83164e0-c0dc-4a1d-b5a3-516d7c91c6d2.png)
+
+![image](https://user-images.githubusercontent.com/15073157/193603954-748626eb-35b8-44a5-85c0-89b92d1f6126.png)
+
+New service
+
+![image](https://user-images.githubusercontent.com/15073157/193604240-ab41b957-3ed5-4818-a532-4fd3aedf69b8.png)
+
+Attached task to the service
+
+![image](https://user-images.githubusercontent.com/15073157/193604870-ebe91ea7-e4f3-4e64-a461-5410685a31fa.png)
+
+
+# Testing
+
+First, let us see the running version.
+
+Copy the DNS url from the ALB and check the result and below is the result.
+
+![image](https://user-images.githubusercontent.com/15073157/193605517-cc37c6fa-91bc-471e-8812-311f33857cc4.png)
+
+The corresponding source code is 
+
+![image](https://user-images.githubusercontent.com/15073157/193605699-8190c70d-260b-454e-9eea-12df2d81b980.png)
+
+
+Now let's increase the version from `1` to `2` and `commit` to branch `master`
+
+![image](https://user-images.githubusercontent.com/15073157/193606194-348155a2-1ae2-4403-83a6-135296337991.png)
+
+
+Pipeline triggered for the corresponding `commit`
+
+![image](https://user-images.githubusercontent.com/15073157/193606363-a5614d5e-003f-4b15-95aa-769c09535cbe.png)
+
+Wait a while for the deployment to be successful...
+
+![image](https://user-images.githubusercontent.com/15073157/193609534-20199d44-02ee-47ad-b1d1-3dec7d4ee135.png)
+
+After successful deployment the version is increased to `2`
+
+
+
 
 
