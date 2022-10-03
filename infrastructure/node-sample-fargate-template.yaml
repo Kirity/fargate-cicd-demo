@@ -85,7 +85,6 @@ Resources:
   # Create a TaskDefinition with container details
   TaskDefinition:
     Type: AWS::ECS::TaskDefinition
-    DependsOn: ContainerPort
     Properties:
       Memory: 1024
       Cpu: 512
