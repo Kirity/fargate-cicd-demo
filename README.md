@@ -20,7 +20,7 @@ Once the application is ready, we need a pipeline to extract, build and deploy o
 
 AWS CodePipeline is used as continious integration and continious deployment.
 
-## Infrastructure details
+### Infrastructure details
 `infrastructure/node-sample-app-pipeline.yaml`: this file contains the code to create the piepline with CloudFormation.
 
 The resources created are:
@@ -40,7 +40,7 @@ The resources created are:
   - `Build`: the above created build project is used here.
   - `Deploy`: in this step a CloudFormation template is executed in CF service. 
 
-## Execute the file
+### Execute the file
 
 Command to run in the AWS CLI is `aws cloudformation create-stack --template-body file://node-sample-app-pipeline.yaml --stack-name node-sample-app-pipeline`.
 
