@@ -94,6 +94,28 @@ Attached task to the service
 ![image](https://user-images.githubusercontent.com/15073157/193604870-ebe91ea7-e4f3-4e64-a461-5410685a31fa.png)
 
 
+# Testing
+
+First, let us see the running version.
+
+Copy the DNS url from the ALB and check the result and below is the result.
+
+![image](https://user-images.githubusercontent.com/15073157/193605517-cc37c6fa-91bc-471e-8812-311f33857cc4.png)
+
+The corresponding source code is 
+
+![image](https://user-images.githubusercontent.com/15073157/193605699-8190c70d-260b-454e-9eea-12df2d81b980.png)
+
+
+Now let's increase the version to `2` and `commit` to branch `master`
+
+![image](https://user-images.githubusercontent.com/15073157/193606194-348155a2-1ae2-4403-83a6-135296337991.png)
+
+
+Pipeline triggered for the corresponding `commit`
+
+![image](https://user-images.githubusercontent.com/15073157/193606363-a5614d5e-003f-4b15-95aa-769c09535cbe.png)
+
 
 
 
