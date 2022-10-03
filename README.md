@@ -89,7 +89,11 @@ New service
 
 ![image](https://user-images.githubusercontent.com/15073157/193604240-ab41b957-3ed5-4818-a532-4fd3aedf69b8.png)
 
-Attached tasks to the service
+Attached task to the service
+
+![image](https://user-images.githubusercontent.com/15073157/193604870-ebe91ea7-e4f3-4e64-a461-5410685a31fa.png)
+
+
 
 
 
