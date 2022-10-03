@@ -14,7 +14,7 @@ This is a demo project with a `Node.js` application, which is deployed with CICD
 
 [Let's create the Fargate infrastructure](https://github.com/Kirity/fargate-cicd-demo#lets-create-the-fargate-infrastructure)
 
-[Let's test the pipeline](https://github.com/Kirity/fargate-cicd-demo#testing)
+[Let's test the pipeline](https://github.com/Kirity/fargate-cicd-demo#lets-test-the-pipeline)
 
 
 # Pre-requisits
@@ -116,11 +116,11 @@ Attached task to the service
 
 First, let us see the running version.
 
-Copy the DNS url from the ALB and check the result and below is the result.
+Copy the DNS url from the ALB and hit it in a browser. You would see as below:
 
 ![image](https://user-images.githubusercontent.com/15073157/193605517-cc37c6fa-91bc-471e-8812-311f33857cc4.png)
 
-The corresponding source code is 
+The corresponding source code is to print this line from soruce code in `serveer.js` is
 
 ![image](https://user-images.githubusercontent.com/15073157/193605699-8190c70d-260b-454e-9eea-12df2d81b980.png)
 
@@ -137,4 +137,6 @@ Wait a while for the deployment to be successful...
 
 ![image](https://user-images.githubusercontent.com/15073157/193609534-20199d44-02ee-47ad-b1d1-3dec7d4ee135.png)
 
-After successful deployment the version is increased to `2`
+After successful deployment the version is increased to `2`.
+
+This proved that the changes from the application are deployed into `ECS Fargate`.
