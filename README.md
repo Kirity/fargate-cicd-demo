@@ -1,12 +1,26 @@
 # Introduction
-In this project a sample Node application is deployed with CICD onto Fargate with CloudFormation.
+
+In this a demo project with a Node.js application which is deployed with CICD onto Fargate with CloudFormation.
+
+# Pre-requisits
 
 # Architecture
+
+# Let's create the application
+
+It is a simple Hello World application, which will respond to our request. It listens on the port `8080` and returns a String with versio and hostname.
+
+Source code is in the file `server.js`. Dependencies and metadata are in the file `package.json`.
+
+A simple `Dockerfile` is created to install the needed dependencies, start the application, and expose the application on the port `8080`.
+
+Once the application is ready, we need a pipeline to extract, build and deploy our application, so let's do it.
 
 # Let's create the CodePipeline
 
 AWS CodePipeline is used as continious integration and continious deployment.
 
+## Infrastructure details
 `infrastructure/node-sample-app-pipeline.yaml`: this file contains the code to create the piepline with CloudFormation.
 
 The resources created are:
@@ -26,6 +40,14 @@ The resources created are:
   - `Build`: the above created build project is used here.
   - `Deploy`: in this step a CloudFormation template is executed in CF service. 
 
+## Execute the file
+
+Command to run in the AWS CLI is `aws cloudformation create-stack --template-body file://node-sample-app-pipeline.yaml --stack-name node-sample-app-pipeline`.
+
+If CLI is not configured this can be executed via AWS UI too.
+
+Once the pipeline is created, we need the Fargate resources, which are used to deploy our Node application.
+
+# Let's create the Fargate infrastructure
 
 
-# Let's create the application
