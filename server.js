@@ -11,7 +11,7 @@ var hostname = os.hostname();
 // App
 const app = express();
 app.get('/', (req, res) => {
-  res.send('Hello World Version 1 and hostname = '+ hostname);
+  res.send('Application version 1 and hostname = '+ hostname);
 });
 
 app.listen(PORT, HOST);
