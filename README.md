@@ -107,7 +107,7 @@ The corresponding source code is
 ![image](https://user-images.githubusercontent.com/15073157/193605699-8190c70d-260b-454e-9eea-12df2d81b980.png)
 
 
-Now let's increase the version to `2` and `commit` to branch `master`
+Now let's increase the version from `1` to `2` and `commit` to branch `master`
 
 ![image](https://user-images.githubusercontent.com/15073157/193606194-348155a2-1ae2-4403-83a6-135296337991.png)
 
@@ -120,7 +120,7 @@ Wait a while for the deployment to be successful...
 
 ![image](https://user-images.githubusercontent.com/15073157/193609534-20199d44-02ee-47ad-b1d1-3dec7d4ee135.png)
 
-
+After successful deployment the version is increased to `2`
 
 
 
