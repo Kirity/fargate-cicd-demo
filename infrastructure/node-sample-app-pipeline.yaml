@@ -61,7 +61,7 @@ Resources:
       ArtifactStore:
         Location: !Join ['-', [!Ref Stage, !Ref 'AWS::AccountId', 's3bucket']]
         Type: S3
-      Name: !Join ['-', [!Ref Stage, !Ref 'AWS::AccountId', 'CodePipeLine']]
+      Name: !Join ['-', [!Ref Stage, 'sample-node-app']]
       RestartExecutionOnUpdate: False
       RoleArn: !Sub 'arn:aws:iam::${AWS::AccountId}:role/CODEPIPELINE_CICD_ROLE'
       Stages:
