@@ -33,6 +33,7 @@ Resources:
   # Create a security group for Containers and open in bound Container port from Load balancer security group to the Container
   ContainerSecurityGroup:
     Type: AWS::EC2::SecurityGroup
+    DependsOn: LoadBalancerSecurityGroup
     Properties:
       GroupDescription: !Join [ '-', [ !Ref Stage, !Ref 'AWS::AccountId', 'ContainerSecurityGroup' ] ]
       VpcId: !Ref VPC
@@ -45,6 +46,7 @@ Resources:
   # Create a LoadBalancer and attach the Security group and Subnets
   LoadBalancer:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    DependsOn: LoadBalancerSecurityGroup
     Properties:
       IpAddressType: ipv4
       Name: !Join [ '-', [ !Ref Stage, !Ref 'AWS::AccountId', 'LoadBalancer' ] ]
@@ -69,6 +71,9 @@ Resources:
   # Create a LoadBalancerListener and attach the TargetGroup and LoadBalancer
   LoadBalancerListener:
     Type: AWS::ElasticLoadBalancingV2::Listener
+    DependsOn:
+      - TargetGroup
+      - LoadBalancer
     Properties:
       DefaultActions:
         - TargetGroupArn: !Ref TargetGroup
@@ -80,6 +85,7 @@ Resources:
   # Create a TaskDefinition with container details
   TaskDefinition:
     Type: AWS::ECS::TaskDefinition
+    DependsOn: ContainerPort
     Properties:
       Memory: 1024
       Cpu: 512
@@ -98,6 +104,10 @@ Resources:
   # Create an ECS Service and add created Cluster, TaskDefinition, Subnets, TargetGroup and SecurityGroup
   ECSService:
     Type: AWS::ECS::Service
+    DependsOn:
+      - LoadBalancerListener
+      - ContainerSecurityGroup
+      - TargetGroup
     Properties:
       ServiceName: !Join ['-', [!Ref Stage, !Ref 'AWS::AccountId', 'ECSService']]
       Cluster: "aws-fargate-cluster"
