@@ -14,7 +14,7 @@ This is a demo project with a `Node.js` application, which is deployed with CICD
 
 [Let's create the Fargate infrastructure](https://github.com/Kirity/fargate-cicd-demo#lets-create-the-fargate-infrastructure)
 
-[Testing](https://github.com/Kirity/fargate-cicd-demo#testing)
+[Let's test the pipeline](https://github.com/Kirity/fargate-cicd-demo#testing)
 
 
 # Pre-requisits
@@ -112,7 +112,7 @@ Attached task to the service
 ![image](https://user-images.githubusercontent.com/15073157/193604870-ebe91ea7-e4f3-4e64-a461-5410685a31fa.png)
 
 
-# Testing
+# Let's test the pipeline
 
 First, let us see the running version.
 
