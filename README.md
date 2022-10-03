@@ -17,11 +17,11 @@ This is a demo project with a `Node.js` application, which is deployed with CICD
 [Let's test the pipeline](https://github.com/Kirity/fargate-cicd-demo#lets-test-the-pipeline)
 
 
-# Pre-requisits
+# Pre-requisites
 - An existing AWS account.
 - An existing GitHub account with a repository in it.
-- An existing `CodeStart` connection linked with the GitHub project. If not please follow the steps provided in this page ["Create a connection to GitHub"](https://docs.aws.amazon.com/dtconsole/latest/userguide/connections-create-github.html).
-- An existing Fargate cluster. If not you can create it with this `CloudForamtion` template prvided here ["Create a Fargate Cluster"](https://gist.github.com/Kirity/7ee2e8a0ec5e9e35ac0907c011bcb8bf).
+- An existing `CodeStart` connection linked with the GitHub project. If not, please follow the steps provided on this page ["Create a connection to GitHub"](https://docs.aws.amazon.com/dtconsole/latest/userguide/connections-create-github.html).
+- An existing Fargate cluster. If not, it can be created with the `CloudForamtion` template provided here ["Create a Fargate Cluster"](https://gist.github.com/Kirity/7ee2e8a0ec5e9e35ac0907c011bcb8bf).
 
 # Architecture
 
@@ -32,7 +32,7 @@ This is a demo project with a `Node.js` application, which is deployed with CICD
 
 It is a simple Hello World application, which will respond to our request. It listens on the port `8080` and returns a String with versio and hostname.
 
-Source code is in the file `server.js`. Dependencies and metadata are in the file `package.json`.
+The source code is in the file `server.js`. Dependencies and metadata are in the file `package.json`.
 
 A simple `Dockerfile` is created to install the needed dependencies, start the application, and expose the application on the port `8080`.
 
@@ -43,7 +43,7 @@ Once the application is ready, we need a pipeline to extract, build and deploy o
 AWS CodePipeline is used as continious integration and continious deployment.
 
 ### Infrastructure details
-`infrastructure/node-sample-app-pipeline.yaml`: this file contains the code to create the piepline with CloudFormation.
+`infrastructure/node-sample-app-pipeline.yaml`: this file contains the code to create the pipepline with CloudFormation.
 
 The resources created are:
 
