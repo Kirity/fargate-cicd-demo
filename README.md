@@ -114,7 +114,7 @@ Attached task to the service
 
 # Let's test the pipeline
 
-First, let us see the running version.
+First, let's check the current running version.
 
 Copy the DNS url from the ALB and hit it in a browser. You would see as below:
 
