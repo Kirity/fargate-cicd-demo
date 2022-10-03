@@ -18,6 +18,10 @@ This is a demo project with a `Node.js` application, which is deployed with CICD
 
 
 # Pre-requisits
+- An existing AWS account.
+- An existing GitHub account with a repository in it.
+- An existing `CodeStart` connection linked with the GitHub project. If not please follow the steps provided in this page ["Create a connection to GitHub"](https://docs.aws.amazon.com/dtconsole/latest/userguide/connections-create-github.html).
+- An existing Fargate cluster. If not you can create it with this `CloudForamtion` template prvided here ["Create a Fargate Cluster"](https://gist.github.com/Kirity/7ee2e8a0ec5e9e35ac0907c011bcb8bf).
 
 # Architecture
 
