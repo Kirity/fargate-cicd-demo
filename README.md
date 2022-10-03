@@ -116,6 +116,10 @@ Pipeline triggered for the corresponding `commit`
 
 ![image](https://user-images.githubusercontent.com/15073157/193606363-a5614d5e-003f-4b15-95aa-769c09535cbe.png)
 
+Wait a while for the deployment to be successful...
+
+![image](https://user-images.githubusercontent.com/15073157/193609534-20199d44-02ee-47ad-b1d1-3dec7d4ee135.png)
+
 
 
 
