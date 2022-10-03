@@ -49,7 +49,7 @@ Resources:
     DependsOn: LoadBalancerSecurityGroup
     Properties:
       IpAddressType: ipv4
-      Name: !Join [ '-', [ !Ref Stage, !Ref 'AWS::AccountId', 'LoadBalancer' ] ]
+      Name: !Join [ '-', [ !Ref Stage, 'ecs-demo', 'LoadBalancer' ] ]
       Scheme: internet-facing
       SecurityGroups:
         - !Ref LoadBalancerSecurityGroup
