@@ -52,7 +52,8 @@ Once the pipeline is created, we need the Fargate resources, which are used to d
 
 ECR repository
 
-![image](https://user-images.githubusercontent.com/15073157/193581225-6329ff53-4f7a-47d3-8d7f-7dd6c0abf89b.png)
+![image](https://user-images.githubusercontent.com/15073157/193581731-22ad6b40-9778-41d0-a1ad-8bdb563501b5.png)
+
 
 
 # Let's create the Fargate infrastructure
