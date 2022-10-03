@@ -54,6 +54,9 @@ ECR repository
 
 ![image](https://user-images.githubusercontent.com/15073157/193581731-22ad6b40-9778-41d0-a1ad-8bdb563501b5.png)
 
+Pipeline
+
+![image](https://user-images.githubusercontent.com/15073157/193584105-ec50b743-a807-4898-876b-f02729e33f77.png)
 
 
 # Let's create the Fargate infrastructure
