@@ -48,6 +48,13 @@ If CLI is not configured this can be executed via AWS UI too.
 
 Once the pipeline is created, we need the Fargate resources, which are used to deploy our Node application.
 
+### Created resources
+
+ECR repository
+
+![image](https://user-images.githubusercontent.com/15073157/193581225-6329ff53-4f7a-47d3-8d7f-7dd6c0abf89b.png)
+
+
 # Let's create the Fargate infrastructure
 
 
