@@ -1,15 +1,21 @@
+This is a demo project with a `Node.js` application, which is deployed with CICD onto `ECS Fargate` with `CloudFormation` service.
+
 # Summary
+
 [Introduction](https://github.com/Kirity/fargate-cicd-demo#introduction)
+
 [Pre-requisits](https://github.com/Kirity/fargate-cicd-demo#pre-requisits)
+
 [Architecture](https://github.com/Kirity/fargate-cicd-demo#architecture)
+
 [Let's create the application](https://github.com/Kirity/fargate-cicd-demo#lets-create-the-application)
+
 [Let's create the CodePipeline](https://github.com/Kirity/fargate-cicd-demo#lets-create-the-codepipeline)
+
 [Let's create the Fargate infrastructure](https://github.com/Kirity/fargate-cicd-demo#lets-create-the-fargate-infrastructure)
+
 [Testing](https://github.com/Kirity/fargate-cicd-demo#testing)
 
-# Introduction
-
-In this a demo project with a Node.js application which is deployed with CICD onto Fargate with CloudFormation.
 
 # Pre-requisits
 
