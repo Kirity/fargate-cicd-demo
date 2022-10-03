@@ -85,6 +85,12 @@ Application LoadBalancer
 
 ![image](https://user-images.githubusercontent.com/15073157/193603954-748626eb-35b8-44a5-85c0-89b92d1f6126.png)
 
+New service
+
+![image](https://user-images.githubusercontent.com/15073157/193604240-ab41b957-3ed5-4818-a532-4fd3aedf69b8.png)
+
+Attached tasks to the service
+
 
 
 
