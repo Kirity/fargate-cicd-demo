@@ -61,6 +61,20 @@ Pipeline
 
 # Let's create the Fargate infrastructure
 
+File `infrastructure/node-sample-fargate-template.yaml` contains the needed resources for Fargate.
+
+`AWS::ElasticLoadBalancingV2::LoadBalancer`: an application is load balancer is created to take the requests from internet. 
+
+`AWS::ElasticLoadBalancingV2::TargetGroup`: a load balancer TargetGroup is created to listen the incoming `HTTP` requests on port `80`.
+
+`AWS::ElasticLoadBalancingV2::Listener`: a listener is created to bind the TargetGroup with the LoadBalancer.
+
+`AWS::ECS::TaskDefinition`: it defines which docker image needs to be extracted and run on Fargate. Also additional configurations like  memory, cpu, network, service role, and port mappings
+
+`AWS::ECS::Service`: it defines the configuration over the task and Fargate cluster on which task's needs to be run. Other config like tasks desired count, VPC configs, SecurityGroup, LoadBalancer.
+
+
+
 
 
 
