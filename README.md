@@ -40,15 +40,15 @@ The resources created are:
   - `Build`: the above created build project is used here.
   - `Deploy`: in this step a CloudFormation template is executed in CF service. 
 
-### Execute the file
+### Execution of the file
 
-Command to run in the AWS CLI is `aws cloudformation create-stack --template-body file://node-sample-app-pipeline.yaml --stack-name node-sample-app-pipeline`.
+Command to run in the AWS CLI is `aws cloudformation create-stack --template-body file://infrastructure/node-sample-app-pipeline.yaml --stack-name node-sample-app-pipeline`.
 
 If CLI is not configured this can be executed via AWS UI too.
 
 Once the pipeline is created, we need the Fargate resources, which are used to deploy our Node application.
 
-### Created resources
+### Created pipeline and supported resources
 
 ECR repository
 
@@ -73,8 +73,10 @@ File `infrastructure/node-sample-fargate-template.yaml` contains the needed reso
 
 `AWS::ECS::Service`: it defines the configuration over the task and Fargate cluster on which task's needs to be run. Other config like tasks desired count, VPC configs, SecurityGroup, LoadBalancer.
 
+### Execution of the file
 
+This CloudFormation template is executed as part of `Deploy` stage in CodePipeline.
 
-
+### Created Fargate and supporting resources
 
 
