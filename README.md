@@ -6,6 +6,9 @@ In this a demo project with a Node.js application which is deployed with CICD on
 
 # Architecture
 
+![image](https://user-images.githubusercontent.com/15073157/193616398-28088cea-2557-4e8d-89bd-5c9d6418d8b4.png)
+
+
 # Let's create the application
 
 It is a simple Hello World application, which will respond to our request. It listens on the port `8080` and returns a String with versio and hostname.
