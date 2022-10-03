@@ -79,4 +79,13 @@ This CloudFormation template is executed as part of `Deploy` stage in CodePipeli
 
 ### Created Fargate and supporting resources
 
+Application LoadBalancer
+
+![image](https://user-images.githubusercontent.com/15073157/193603572-b83164e0-c0dc-4a1d-b5a3-516d7c91c6d2.png)
+
+![image](https://user-images.githubusercontent.com/15073157/193603635-f423d364-ad2f-4c7d-a316-80ab19f96106.png)
+
+
+
+
 
